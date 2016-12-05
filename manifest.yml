@@ -1,11 +1,12 @@
 applications:
-- path: .
-  memory: 128M
-  instances: 1
-  domain: mybluemix.net
+- disk_quota: 1024M
+  host: roommonitor.mybluemix.net
   name: roommonitor
-  host: RoomMonitor
-  disk_quota: 1024M
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 128M
   services:
   - ECS-ELEC6245-iotf-service
   - availability-monitoring-auto
