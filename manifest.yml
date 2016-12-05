@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: mybluemix.net
+  name: roommonitor
+  host: RoomMonitor
+  disk_quota: 1024M
+  services:
+  - ECS-ELEC6245-iotf-service
+  - availability-monitoring-auto
