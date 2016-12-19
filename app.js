@@ -83,3 +83,18 @@ var server = app.listen(app.get('port'), app.get('host'), function() {
 });
 
 module.exports = app;
+
+
+require('dotenv').load();
+// Load the Cloudant library.
+var Cloudant = require('cloudant');
+
+var username = process.env.cloudant_username || "nodejs";
+var password = process.env.cloudant_password;
+
+// Initialize the library with my account.
+var cloudant = Cloudant({account:username, password:password});
+
+cloudant.db.list(function(err, allDbs) {
+  console.log('All my databases: %s', allDbs.join(', '))
+});

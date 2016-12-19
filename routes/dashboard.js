@@ -16,7 +16,7 @@ var router = express.Router();
 /* GET realtime page. */
 router.get('/', function(req, res) {
 
-	res.render('dashboard', { title: 'IBM Internet of Things Foundation' });
+	res.render('dashboard', { title: 'Room Monitor Dashboard' });
 });
 
 
