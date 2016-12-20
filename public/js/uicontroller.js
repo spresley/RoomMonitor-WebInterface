@@ -10,7 +10,7 @@
 * IBM - Initial Contribution
 *******************************************************************************/
 
-// Main UI 
+// Main UI
 var orgId = "";
 var orgName = "";
 //flag for historian
@@ -28,7 +28,7 @@ $.ajax
 	async: false,
 
 	success: function (data, status, jq){
-
+		console.log("successfully got orgid and orgname");
 		orgId = data.id;
 		orgName = data.name;
 		api_key = data.api_key;
@@ -54,13 +54,14 @@ $.ajax
 	async: true,
 
 	success: function (data, status, jq){
-
+		console.log("devices in org found");
 		devices = data;
 		for(var d in devices){
 			$("#deviceslist").append("<option value="+devices[d].clientId+">"+devices[d].deviceId+"</option>");
 		}
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
+		console.log("error retrieving devices list of the org");
 		console.log(xhr.status);
 		console.log(thrownError);
 	}
@@ -76,7 +77,7 @@ $( "#deviceslist" ).change(function() {
 	} else {
 		realtime.plotRealtimeGraph();
 	}
-	
+
 });
 
 //Toggle historian options when user selects historic/live data radio buttons

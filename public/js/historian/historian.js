@@ -27,12 +27,12 @@ var Historian  = function () {
 			var top = $( 'input[name=historicQuery]:checked' ).val();
 			console.log("called "+top);
 			var queryParam = {};
-			
+
 			if(top == "topEvents") {
 				queryParam = {
 					top: $(historicTopRange).spinner( "value" )
 				};
-			} 
+			}
 			else if(top == "dateRange") {
 				//Datetimes only in GMT
 				var startDate = Date.parse($(historicStarts).val()+" GMT");
@@ -42,7 +42,7 @@ var Historian  = function () {
 					end: endDate
 				};
 			}
-			
+
 			$.ajax
 			({
 				type: "GET",
@@ -52,9 +52,9 @@ var Historian  = function () {
 				async: true,
 
 				success: function (data, status, jq){
-
+					console.log("success")
 					//clear prev graphs
-					$('#chart').empty(); 
+					$('#chart').empty();
 					$('#timeline').empty();
 					$('#legend').empty();
 					historianGraph.displayHistChart(null,data);

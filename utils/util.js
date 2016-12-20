@@ -29,10 +29,10 @@ util.iot_httpCall = function( URI, api_key, auth_token, res, queryObj, sendCred)
   iot_foundation_api_options.auth = api_key + ':' + auth_token;
   iot_foundation_api_options.path=URI;
   if(queryObj){
-    console.log("Query called with : "+querystring.stringify(queryObj)); 
+    console.log("Query called with : "+querystring.stringify(queryObj));
     iot_foundation_api_options.path=URI+"?"+querystring.stringify(queryObj);
   }
-  
+
   var http_req = https.get(iot_foundation_api_options, function(http_res) {
     var data = [];
     //check for http success
@@ -40,7 +40,7 @@ util.iot_httpCall = function( URI, api_key, auth_token, res, queryObj, sendCred)
     {
       http_res.on('data', function(chunk) {
         data.push(chunk);
-        
+
       });
 
       http_res.on('end',function(){
@@ -72,7 +72,7 @@ util.iot_httpCall = function( URI, api_key, auth_token, res, queryObj, sendCred)
 
 
 util.getDevices = function( api_key, auth_token, res){
-  
+
   iot_foundation_api_options.hostname = util.orgId+'.internetofthings.ibmcloud.com';
   iot_foundation_api_options.auth = api_key + ':' + auth_token;
   iot_foundation_api_options.path='/api/v0002/bulk/devices';
@@ -84,7 +84,7 @@ util.getDevices = function( api_key, auth_token, res){
     {
       http_res.on('data', function(chunk) {
         data.push(chunk);
-        
+
       });
 
       http_res.on('end',function(){

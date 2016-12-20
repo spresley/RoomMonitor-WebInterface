@@ -32,7 +32,7 @@ var HistorianGraph = function(){
 			renderer: 'line',
 			stroke: true,
 			preserve: true,
-			series: seriesData	
+			series: seriesData
 		} );
 
 		this.graph.render();
@@ -102,39 +102,47 @@ var HistorianGraph = function(){
 	};
 
 	this.displayHistChart = function(device,histData){
+		console.log("displayHistChart enter")
 
 		var seriesData = [];
 
-		var counter = 0;
+		console.log("type of histdata:");
+		console.log(typeof(histData));
 
-		var data = histData.events;
-		
-		for(var i = data.length-1 ; i>=0 ;i-- ){	
-	   		
-	   		var key = 0;	
-			
-			for (var j in data[i].evt){
+		var data = histData;
+		data.length = Object.keys(data).length // returns 5
 
-				if (typeof data[i].evt[j] !== 'string') {
-					if(i===data.length-1){
-						seriesData[key]={};
-						seriesData[key].name=j;
-						seriesData[key].color = this.palette.color();
-						seriesData[key].data=[];	
-					}
-					
-					seriesData[key].data[counter]={};
-					seriesData[key].data[counter].x = data[i].timestamp.$date/1000;// timestamp;
-					seriesData[key].data[counter].y = data[i].evt[j];
-				
-					key++;
-				}
-			}
-			
-			counter++;
-		}	
+		console.log("number hist data entries = %d", data.length );
+		console.log(data);
+		console.log("data[0]:");
+		console.log(data[0]);
+
+		seriesData[0]={};
+		seriesData[0].name = 'Light Level';
+		seriesData[0].color = this.palette.color();
+		seriesData[0].data = [];
+		seriesData[1]={};
+		seriesData[1].name = 'Activity Level';
+		seriesData[1].color = this.palette.color();
+		seriesData[1].data = [];
+
+
+		for (var i = 0; i<data.length; i++){
+			seriesData[0].data[i]={};
+			seriesData[0].data[i].x= Date.parse(data[i].value.payload.d.time_stamp)/1000;
+			seriesData[0].data[i].y= data[i].value.payload.d.light_level;
+			seriesData[1].data[i]={};
+			seriesData[1].data[i].x= Date.parse(data[i].value.payload.d.time_stamp)/1000;
+			seriesData[1].data[i].y= data[i].value.payload.d.activity_level;
+
+		}
+
+		var epoc = Date.parse(data[0].value.payload.d.time_stamp);
+		var epocdate = Date(epoc);
+
+		console.log("time stamp string: %s, epoc number:%d, back again: %s", data[0].value.payload.d.time_stamp, epoc, epocdate.toString())
 		this.drawGraph(seriesData);
-		
+
 	};
 
 };
